@@ -1,0 +1,14 @@
+# Compilados
+bin/
+target/
+*.class
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Logs
+*.log
+
+colar isso deentro?
