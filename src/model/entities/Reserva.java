@@ -1,11 +1,16 @@
 package model.entities;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 public class Reserva {
 	private Integer numero;
 	private LocalDate checkIn;
 	private LocalDate checkOut;
+	
+	private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 	
 	public Reserva(Integer numero, LocalDate checkIn, LocalDate checkOut) {
 		this.numero = numero;
@@ -32,5 +37,17 @@ public class Reserva {
 	public void atualizaReserva( LocalDate checkIn, LocalDate checkOut) {
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
+	}
+	
+	@Override
+	public String toString() {
+		return "Room:" +
+				numero +
+				", checkIn: " +
+				dtf.format(checkIn) +
+				", checkOut: " +
+				dtf.format(checkOut)+
+				", Noites: " +
+				duracao();
 	}
 }
