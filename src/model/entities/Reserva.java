@@ -35,9 +35,19 @@ public class Reserva {
 	}
 	
 	public void atualizaReserva( LocalDate checkIn, LocalDate checkOut) {
+		
+		LocalDate now = LocalDate.now();
+		if(checkIn.isBefore(now) || checkOut.isBefore(now)) {
+			throw new IllegalArgumentException("As reservas precisam ser depois da data atual");
+		}
+		if(checkOut.isBefore(checkIn)) {
+			throw new IllegalArgumentException("O check tem que ser depois do check-in");
+		}
+		
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
 	}
+
 	
 	@Override
 	public String toString() {
