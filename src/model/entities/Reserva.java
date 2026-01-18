@@ -4,29 +4,25 @@ import java.time.LocalDate;
 
 public class Reserva {
 	private Integer numero;
-	private LocalDate checkin;
-	private LocalDate checkout;
+	private LocalDate checkIn;
+	private LocalDate checkOut;
 	
-	public Reserva(Integer numero, LocalDate checkin, LocalDate checkout) {
+	public Reserva(Integer numero, LocalDate checkIn, LocalDate checkOut) {
 		this.numero = numero;
-		this.checkin = checkin;
-		this.checkout = checkout;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
 	}
 
 	public Integer getNumero() {
 		return numero;
 	}
 
-	public void setNumero(Integer numero) {
-		this.numero = numero;
+	public LocalDate getCheckIn() {
+		return checkIn;
 	}
 
-	public LocalDate getCheckin() {
-		return checkin;
-	}
-
-	public LocalDate getCheckout() {
-		return checkout;
+	public LocalDate getCheckOut() {
+		return checkOut;
 	}	
 	
 }
