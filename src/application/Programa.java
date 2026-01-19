@@ -41,6 +41,9 @@ public class Programa {
 		catch(DateTimeParseException e) {
 			System.out.println("Formato de data digitado errado!");
 		}
+		catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
         
 		sc.close();
 	}
