@@ -10,43 +10,69 @@ import model.entities.Reserva;
 
 public class Programa {
 
-	public static void main(String[] args) {
-		
-		Scanner sc = new Scanner(System.in);
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		
-		try {
-			System.out.print("Numero do quarto: ");
-			int numero = sc.nextInt();
-			System.out.print("Data de check-in (dd/MM/yyyy): ");
-		    LocalDate checkIn = LocalDate.parse(sc.next(), dtf);
-		    System.out.print("Data de check-out (dd/MM/yyyy): ");
-		    LocalDate checkOut = LocalDate.parse(sc.next(), dtf);
-		    
-		    Reserva reserva = new Reserva(numero, checkIn, checkOut);
-		    System.out.println("Reserva: "+ reserva);
-		    
-		    
-		    System.out.println("Entre com a nova data de reserva: ");
-		    System.out.println("Check-in: ");
-		    checkIn = LocalDate.parse(sc.next(), dtf);
-		    System.out.print("Check-out: ");
-		    checkOut = LocalDate.parse(sc.next(), dtf);
-		    reserva.atualizaReserva(checkIn, checkOut);
-		    System.out.println("Reserva: "+ reserva);
-		}
-        catch(InputMismatchException e) {
-        	System.out.println("Deve ser digitado numero inteiro para o numero do quarto! ");
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        Reserva reserva = null;
+
+        // LOOP ATÉ CRIAR UMA RESERVA VÁLIDA
+        while (reserva == null) {
+            try {
+                System.out.print("Numero do quarto: ");
+                int numero = sc.nextInt();
+
+                System.out.print("Data de check-in (dd/MM/yyyy): ");
+                LocalDate checkIn = LocalDate.parse(sc.next(), dtf);
+
+                System.out.print("Data de check-out (dd/MM/yyyy): ");
+                LocalDate checkOut = LocalDate.parse(sc.next(), dtf);
+
+                reserva = new Reserva(numero, checkIn, checkOut);
+                System.out.println("Reserva criada com sucesso!");
+                System.out.println(reserva);
+
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Erro: o número do quarto deve ser um inteiro.");
+                sc.nextLine(); // limpa o buffer
+            }
+            catch (DateTimeParseException e) {
+                System.out.println("Erro: formato de data inválido.");
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
         }
-		catch(DateTimeParseException e) {
-			System.out.println("Formato de data digitado errado!");
-		}
-		catch(IllegalArgumentException e) {
-			System.out.println(e.getMessage());
-		}
-        
-		sc.close();
-	}
 
+        // ATUALIZAÇÃO DA RESERVA (TAMBÉM COM LOOP)
+        boolean atualizado = false;
 
+        while (!atualizado) {
+            try {
+                System.out.println("\nEntre com a nova data da reserva:");
+
+                System.out.print("Check-in: ");
+                LocalDate checkIn = LocalDate.parse(sc.next(), dtf);
+
+                System.out.print("Check-out: ");
+                LocalDate checkOut = LocalDate.parse(sc.next(), dtf);
+
+                reserva.atualizaReserva(checkIn, checkOut);
+                System.out.println("Reserva atualizada com sucesso!");
+                System.out.println(reserva);
+
+                atualizado = true;
+            }
+            catch (DateTimeParseException e) {
+                System.out.println("Erro: formato de data inválido.");
+            }
+            catch (IllegalArgumentException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        }
+
+        sc.close();
+    }
 }
